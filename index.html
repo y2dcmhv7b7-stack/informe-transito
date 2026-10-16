@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informe de Hecho de Tránsito</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f3f5;
+    color: #222;
+}
+
+header {
+    background: #8b0000;
+    color: white;
+    padding: 18px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+header p {
+    margin: 5px 0 0;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 15px;
+}
+
+.section {
+    background: white;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    padding: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+.section h2 {
+    margin-top: 0;
+    color: #8b0000;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 8px;
+    font-size: 18px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.field.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 12px;
+    background: #fafafa;
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #555;
+}
+
+button {
+    border: none;
+    border-radius: 7px;
+    padding: 11px 16px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.add {
+    background: #198754;
+    color: white;
+}
+
+.delete {
+    background: #dc3545;
+    color: white;
+}
+
+.whatsapp {
+    background: #25D366;
+    color: white;
+    width: 100%;
+    font-size: 17px;
+    padding: 16px;
+}
+
+.clear {
+    background: #6c757d;
+    color: white;
+    width: 100%;
+}
+
+
+.hidden {
+    display: none;
+}
+
+#vistaPrevia {
+    min-height: 360px;
+    font-family: Arial, sans-serif;
+    line-height: 1.45;
+    white-space: pre-wrap;
+}
+
+#seccionVistaPrevia {
+    border: 2px solid #8b0000;
+}
+
+#seccionVistaPrevia h2 {
+    color: #8b0000;
+}
+
+
+@media(max-width:700px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<style id="fase5-css">
+#seccionGestionInformes { margin-top: 20px; }
+.gestion-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; }
+.btn-secondary { background:#444 !important; }
+.btn-danger { background:#a32020 !important; }
+.btn-success { background:#176b3a !important; }
+#listaInformes { margin-top:14px; }
+.informe-guardado {
+    border:1px solid #ccc; border-radius:10px; padding:12px; margin-bottom:10px;
+    background:#fafafa;
+}
+.informe-meta { font-size:.92em; margin-bottom:8px; line-height:1.5; }
+.informe-acciones { display:flex; gap:8px; flex-wrap:wrap; }
+.informe-acciones button { margin:0; }
+.vacio-informes { padding:15px; text-align:center; color:#666; border:1px dashed #aaa; border-radius:10px; }
+.badge-tipo { display:inline-block; padding:2px 7px; border-radius:8px; background:#eee; font-size:.8em; }
+</style>
+
+
+<style id="fase6-css">
+:root{--f6-bg:#f4f6f8;--f6-card:#fff;--f6-border:#d8dde3;--f6-text:#1f2937;--f6-muted:#6b7280;--f6-accent:#1f4e79;--f6-shadow:0 2px 10px rgba(0,0,0,.08)}
+body.fase6-ready{background:var(--f6-bg);color:var(--f6-text)}
+#f6Topbar{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid var(--f6-border);box-shadow:var(--f6-shadow);padding:10px 12px}
+.f6-topbar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.f6-brand{font-weight:800;color:var(--f6-accent);margin-right:auto;line-height:1.15}
+.f6-brand small{display:block;color:var(--f6-muted);font-size:11px;font-weight:500}
+.f6-actionbar{display:flex;gap:7px;flex-wrap:wrap}
+.f6-actionbar button{border:1px solid var(--f6-border);border-radius:8px;padding:9px 11px;cursor:pointer;background:#fff;color:var(--f6-text);font-weight:700;min-height:40px}
+.f6-actionbar .primary{background:var(--f6-accent);color:#fff;border-color:var(--f6-accent)}
+.f6-actionbar .success,.f6-sticky-actions .success{background:#176b3a;color:#fff;border-color:#176b3a}
+#f6Status{max-width:1200px;margin:8px auto 0;font-size:12px;color:var(--f6-muted);min-height:17px}
+.f6-dashboard{max-width:1200px;margin:14px auto;padding:0 12px}
+.f6-counters{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.f6-counter{background:#fff;border:1px solid var(--f6-border);border-radius:10px;padding:12px;box-shadow:var(--f6-shadow)}
+.f6-counter .num{font-size:24px;font-weight:800;color:var(--f6-accent)}
+.f6-counter .label{color:var(--f6-muted);font-size:12px;font-weight:700;text-transform:uppercase}
+.f6-progress{height:7px;border-radius:10px;background:#e5e7eb;overflow:hidden;margin-top:8px}
+.f6-progress>span{display:block;height:100%;width:0;background:var(--f6-accent);transition:width .2s}
+.f6-nav{background:#fff;border:1px solid var(--f6-border);border-radius:10px;padding:10px;margin-bottom:14px;box-shadow:var(--f6-shadow)}
+.f6-nav-title{font-size:12px;font-weight:800;color:var(--f6-muted);text-transform:uppercase;margin-bottom:7px}
+.f6-nav-buttons{display:flex;gap:7px;overflow-x:auto;padding-bottom:2px}
+.f6-nav-buttons button{flex:0 0 auto;border:1px solid var(--f6-border);background:#fff;border-radius:8px;padding:8px 10px;cursor:pointer;font-size:12px;font-weight:700}
+.f6-collapsible{background:#fff;border:1px solid var(--f6-border);border-radius:10px;box-shadow:var(--f6-shadow);overflow:hidden}
+.f6-section-head{display:flex;align-items:center;gap:10px;padding:13px 14px;cursor:pointer;user-select:none;background:#fff}
+.f6-section-head .f6-chevron{margin-left:auto;transition:transform .2s;font-size:14px}
+.f6-collapsible.collapsed .f6-chevron{transform:rotate(-90deg)}
+.f6-collapsible.collapsed>.f6-section-body{display:none}
+.f6-section-head h3{margin:0!important;font-size:15px!important;color:var(--f6-accent)}
+.f6-section-number{width:27px;height:27px;display:grid;place-items:center;border-radius:50%;background:var(--f6-accent);color:#fff;font-size:12px;font-weight:800}
+.f6-section-summary{color:var(--f6-muted);font-size:11px;margin-left:4px}
+.f6-section-body{border-top:1px solid var(--f6-border);padding:12px}
+#seccionGestionInformes,#seccionVistaPrevia{max-width:1200px;margin:14px auto!important;padding:0 12px}
+#seccionGestionInformes>h2{display:none}
+.f6-sticky-actions{position:sticky;bottom:0;z-index:900;max-width:1200px;margin:12px auto 0;padding:8px 12px;background:rgba(244,246,248,.95);border-top:1px solid var(--f6-border);backdrop-filter:blur(4px)}
+.f6-sticky-actions-inner{background:#fff;border:1px solid var(--f6-border);border-radius:10px;box-shadow:var(--f6-shadow);display:flex;gap:8px;flex-wrap:wrap;padding:9px}
+.f6-sticky-actions button{flex:1 1 150px;min-height:42px}
+.f6-active-section{outline:2px solid rgba(31,78,121,.25);outline-offset:2px}
+@media(max-width:700px){.f6-counters{grid-template-columns:repeat(2,1fr)}.f6-brand{width:100%;margin-right:0}.f6-actionbar{width:100%}.f6-actionbar button{flex:1 1 130px}}
+@media(max-width:420px){.f6-counters{gap:7px}.f6-counter{padding:9px}.f6-counter .num{font-size:21px}.f6-actionbar button{font-size:12px;padding:8px 7px}}
+</style>
+
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#111827">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Informe Tránsito">
+<style id="pwa-safe-nav-css">
+#pwaSafeNav{position:sticky;top:0;z-index:9999;background:#111827;color:#fff;padding:8px;display:flex;gap:6px;overflow:auto}
+#pwaSafeNav button{border:0;border-radius:8px;padding:8px 10px;background:#374151;color:#fff;white-space:nowrap;font-weight:600}
+</style>
+</head>
+
+<body>
+
+<div id="f6Topbar">
+ <div class="f6-topbar-inner">
+  <div class="f6-brand">INFORME DE HECHO DE TRÁNSITO<small>POLICÍA ESTATAL DE CAMINOS · REGIÓN VIII ATLIXCO</small></div>
+  <div class="f6-actionbar">
+   <button type="button" class="primary" onclick="nuevoInforme()">🆕 NUEVO</button>
+   <button type="button" class="success" onclick="guardarInforme()">💾 GUARDAR</button>
+   <button type="button" onclick="mostrarInformesGuardados();document.getElementById('seccionGestionInformes')?.scrollIntoView({behavior:'smooth'})">📂 INFORMES</button>
+   <button type="button" onclick="f6GenerarVista()">📋 VISTA PREVIA</button>
+   <button type="button" class="success" onclick="f6EnviarWhatsApp()">📲 WHATSAPP</button>
+  </div>
+ </div>
+ <div id="f6Status"></div>
+</div>
+<div class="f6-dashboard">
+ <div class="f6-counters">
+  <div class="f6-counter"><div class="num" id="f6CountVehiculos">0</div><div class="label">Vehículos</div><div class="f6-progress"><span id="f6ProgressVehiculos"></span></div></div>
+  <div class="f6-counter"><div class="num" id="f6CountPeatones">0</div><div class="label">Peatones</div><div class="f6-progress"><span id="f6ProgressPeatones"></span></div></div>
+  <div class="f6-counter"><div class="num" id="f6CountLesionados">0</div><div class="label">Lesionados</div><div class="f6-progress"><span id="f6ProgressLesionados"></span></div></div>
+  <div class="f6-counter"><div class="num" id="f6CountOccisos">0</div><div class="label">Occisos</div><div class="f6-progress"><span id="f6ProgressOccisos"></span></div></div>
+ </div>
+ <div class="f6-nav"><div class="f6-nav-title">Ir a sección</div><div class="f6-nav-buttons" id="f6NavButtons"></div></div>
+</div>
+
+
+<header>
+    <h1>INFORME DE HECHO DE TRÁNSITO</h1>
+    <p>POLICÍA ESTATAL DE CAMINOS · REGIÓN VIII ATLIXCO</p>
+</header>
+
+<div class="container">
+
+<!-- DATOS GENERALES -->
+<div class="section">
+<h2>DATOS GENERALES</h2>
+
+<div class="grid">
+
+<div class="field">
+<label>Fecha</label>
+<input type="date" id="fecha">
+</div>
+
+<div class="field">
+<label>Folio de C-5</label>
+<input type="text" id="folio">
+</div>
+
+<div class="field">
+    <label for="horaAviso">Hora de aviso</label>
+    <!-- Ejemplo: Inicia a las 2 de la tarde (14:00), mínimo a las 8 AM, máximo a las 11 PM -->
+    <input type="time" id="horaAviso" value="14:00" min="08:00" max="23:00">
+</div>
+
+<div class="field">
+    <label for="horaArribo">Hora de arribo</label>
+    <!-- Ejemplo: Inicia a las 2 de la tarde (14:00), mínimo a las 8 AM, máximo a las 11 PM -->
+    <input type="time" id="horaArribo" value="14:00" min="08:00" max="23:00">
+</div>
+
+<div class="field full">
+<label>Municipio</label>
+<select id="municipio">
+<option value="">Seleccionar municipio</option>
+</select>
+</div>
+<div class="field full">
+<label>Colonia</label>
+<input list="coloniasCatalogo" id="colonia" placeholder="Buscar o escribir colonia">
+<datalist id="coloniasCatalogo"></datalist>
+<small>Si no aparece, escríbela manualmente.</small>
+</div>
+
+<div class="field">
+<label>Lugar de intervención</label>
+<input type="text" id="lugarIntervencion">
+</div>
+
+<div class="field full">
+<label>Georreferencia</label>
+<input type="text" id="georeferencia"><button type="button" class="add" onclick="obtenerGeoreferencia()">📍 OBTENER UBICACIÓN</button>
+</div>
+
+<div class="field full">
+<label>Hecho de tránsito</label>
+<input type="text" id="hechoTransito">
+</div>
+
+<div class="field">
+<label>Tipo de pavimento</label>
+<input type="text" id="pavimento">
+</div>
+
+<div class="field">
+<label>Clima</label>
+<input type="text" id="clima">
+</div>
+
+</div>
+</div>
+
+
+<!-- VEHICULOS -->
+<div class="section">
+<h2>VEHÍCULOS INVOLUCRADOS</h2>
+
+<div id="vehiculos"></div>
+
+<button class="add" onclick="agregarVehiculo()">+ AGREGAR VEHÍCULO</button>
+<button class="add" onclick="agregarPeaton()">🚶 AGREGAR PEATÓN</button>
+
+<div id="peatones"></div>
+</div>
+
+
+<!-- LESIONADOS -->
+<div class="section">
+<h2>LESIONADOS</h2>
+
+<div class="field">
+<label>¿Hubo lesionados?</label>
+<select id="hayLesionados" onchange="mostrarLesionados()">
+<option value="no">NO</option>
+<option value="si">SÍ</option>
+</select>
+</div>
+
+<div id="contenedorLesionados" class="hidden">
+
+<div id="lesionados"></div>
+
+<button class="add" onclick="agregarLesionado()">+ AGREGAR LESIONADO</button>
+
+</div>
+</div>
+
+
+<!-- MUERTOS -->
+<div class="section">
+<h2>MUERTOS</h2>
+
+<div class="field">
+<label>¿Hubo personas fallecidas?</label>
+<select id="hayMuertos" onchange="mostrarMuertos()">
+<option value="no">NO</option>
+<option value="si">SÍ</option>
+</select>
+</div>
+
+<div id="contenedorMuertos" class="hidden">
+
+<div id="muertos"></div>
+
+<button class="add" onclick="agregarOcciso()">+ AGREGAR OCCISO</button>
+
+</div>
+</div>
+
+
+<!-- INSPECCION -->
+<div class="section">
+<h2>INSPECCIÓN OCULAR DEL LUGAR DE LOS HECHOS</h2>
+<div class="field"><label><input type="checkbox" id="usarInspeccion"> Incluir inspección ocular en el informe</label></div>
+<textarea id="inspeccion" class="hidden"></textarea>
+</div>
+
+
+<!-- MECANICA -->
+<div class="section">
+<h2>MECÁNICA DEL HECHO</h2>
+
+<textarea id="mecanica"></textarea>
+</div>
+
+
+<!-- DAÑOS -->
+<div class="section">
+<h2>DAÑOS A LA INFRAESTRUCTURA O MEDIO AMBIENTE</h2>
+
+<div class="field">
+<label>¿Existen daños?</label>
+<select id="danosInfra">
+<option value="No">No</option>
+<option value="Sí">Sí</option>
+</select>
+</div>
+
+<textarea id="descripcionDanos" placeholder="Descripción de los daños"></textarea>
+</div>
+
+
+<!-- ASEGURADOS -->
+<div class="section">
+<h2>PERSONAS ASEGURADAS</h2>
+
+<div class="field">
+<label>¿Hay personas aseguradas?</label>
+<select id="personasAseguradas" onchange="mostrarAsegurados()">
+<option value="No">No</option><option value="Sí">Sí</option>
+</select>
+</div>
+<div id="contenedorAsegurados" class="hidden">
+<div id="asegurados"></div>
+<button type="button" class="add" onclick="agregarAsegurado()">+ AGREGAR PERSONA ASEGURADA</button>
+</div>
+<textarea id="datosAsegurados" class="hidden"></textarea>
+</div>
+
+
+<!-- COMPETENCIA -->
+<div class="section">
+<h2>COMPETENCIA MINISTERIAL</h2>
+
+<select id="competencia" onchange="mostrarCompetencia()">
+<option value="No">No</option>
+<option value="Sí">Sí</option>
+</select>
+<div id="datosCompetencia" class="grid hidden">
+<div class="field"><label>Número de CDI</label><input id="numeroCDI"></div>
+<div class="field"><label>Agente del Ministerio Público que la inicia</label><input id="agenteMP"></div>
+</div>
+</div>
+
+
+<!-- AUTORIDADES -->
+<div class="section">
+<h2>AUTORIDADES EN EL LUGAR</h2>
+
+<textarea id="autoridades"></textarea>
+</div>
+
+
+<!-- SERVICIOS -->
+<div class="section">
+<h2>SERVICIOS DE EMERGENCIA Y/O AUXILIARES</h2>
+
+<textarea id="servicios"></textarea>
+</div>
+
+
+<!-- ACCIONES -->
+<div class="section">
+<h2>ACCIONES REALIZADAS</h2>
+
+<textarea id="acciones">• Se abandera el lugar del hecho para prevenir otro incidente.
+• Se realiza inspección del lugar del hecho.</textarea>
+</div>
+
+
+<!-- PERITOS -->
+<div class="section">
+<h2>PERITOS QUE ATIENDEN E INFORMAN</h2>
+
+<div id="peritosSeleccionados"></div>
+<button type="button" class="add" onclick="agregarPerito()">+ AGREGAR PERITO</button>
+<textarea id="peritos" class="hidden"></textarea>
+<div class="grid">
+<div class="field full"><label>UNIDAD OFICIAL / C.R.P.</label><input type="text" id="unidadOficial"></div>
+</div>
+</div>
+
+
+<!-- GRUAS -->
+<div class="section">
+<h2>GRÚAS</h2>
+
+<input type="text" id="gruas">
+</div>
+
+
+<!-- CONCLUSION -->
+<div class="section">
+<h2>CONCLUSIÓN</h2>
+
+<textarea id="conclusion"></textarea>
+
+<br>
+
+<label>Hora de término</label>
+<input type="time" id="horaTermino">
+
+</div>
+
+
+
+<!-- VISTA PREVIA -->
+<div class="section" id="seccionVistaPrevia">
+<h2>VISTA PREVIA DEL INFORME</h2>
+
+<textarea id="vistaPrevia" readonly placeholder="Aquí aparecerá el informe generado..."></textarea>
+
+<div class="grid">
+<div class="field">
+<button class="add" onclick="generarVistaPrevia()">📄 GENERAR INFORME</button>
+</div>
+<div class="field">
+<button class="add" onclick="copiarInforme()">📋 COPIAR INFORME</button>
+</div>
+</div>
+</div>
+
+
+<!-- BOTONES -->
+<div class="section">
+
+<button class="add" onclick="guardarBorrador()">💾 GUARDAR BORRADOR</button>
+<button class="add" onclick="cargarBorrador()">📂 RECUPERAR BORRADOR</button>
+
+<button class="whatsapp" onclick="generarWhatsApp()">
+📲 ENVIAR INFORME POR WHATSAPP
+</button>
+
+<button class="clear" onclick="limpiarFormulario()">
+🗑️ LIMPIAR FORMULARIO
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+let contadorVehiculos = 0;
+let contadorPeatones = 0;
+let contadorLesionados = 0;
+let contadorOccisos = 0;
+
+
+/* =========================
+   VEHÍCULOS
+========================= */
+
+function opcionesEdad(min,max,extra=true){ let h='<option value="">Seleccionar</option>'; for(let i=min;i<=max;i++) h+=`<option value="${i}">${i}</option>`; if(extra) h+='<option value="NO SE CONOCE">NO SE CONOCE</option><option value="NO APLICA">NO APLICA</option>'; return h; }
+const ESTADOS_MX=['Aguascalientes','Baja California','Baja California Sur','Campeche','Chiapas','Chihuahua','Ciudad de México','Coahuila','Colima','Durango','Estado de México','Guanajuato','Guerrero','Hidalgo','Jalisco','Michoacán','Morelos','Nayarit','Nuevo León','Oaxaca','Puebla','Querétaro','Quintana Roo','San Luis Potosí','Sinaloa','Sonora','Tabasco','Tamaulipas','Tlaxcala','Veracruz','Yucatán','Zacatecas'];
+const MUNICIPIOS_PUEBLA=['Acajete','Acateno','Acatlán','Acatzingo','Acteopan','Ahuacatlán','Ahuatlán','Ahuazotepec','Ahuehuetitla','Ajalpan','Albino Zertuche','Aljojuca','Altepexi','Amixtlán','Amozoc','Aquixtla','Atempan','Atexcal','Atlixco','Atoyatempan','Atzala','Atzitzihuacán','Atzitzintla','Axutla','Ayotoxco de Guerrero','Calpan','Caltepec','Camocuautla','Caxhuacan','Coatepec','Coatzingo','Cohetzala','Cohuecan','Coronango','Coxcatlán','Coyomeapan','Coyotepec','Cuapiaxtla de Madero','Cuautempan','Cuautinchán','Cuautlancingo','Cuayuca de Andrade','Cuetzalan del Progreso','Cuyoaco','Chalchicomula de Sesma','Chapulco','Chiautla','Chiautzingo','Chiconcuautla','Chichiquila','Chietla','Chigmecatitlán','Chignahuapan','Chignautla','Chila','Chila de la Sal','Honey','Chilchotla','Chinantla','Domingo Arenas','Eloxochitlán','Epatlán','Esperanza','Francisco Z. Mena','General Felipe Ángeles','Guadalupe','Guadalupe Victoria','Hermenegildo Galeana','Huaquechula','Huatlatlauca','Huauchinango','Huehuetla','Huehuetlán el Chico','Huejotzingo','Hueyapan','Hueytamalco','Hueytlalpan','Huitzilan de Serdán','Huitziltepec','Atlequizayan','Ixcamilpa de Guerrero','Ixcaquixtla','Ixtacamaxtitlán','Ixtepec','Izúcar de Matamoros','Jalpan','Jolalpan','Jonotla','Jopala','Juan C. Bonilla','Juan Galindo','Juan N. Méndez','Lafragua','Libres','La Magdalena Tlatlauquitepec','Mazapiltepec de Juárez','Mixtla','Molcaxac','Cañada Morelos','Naupan','Nauzontla','Nealtican','Nicolás Bravo','Nopalucan','Ocotepec','Ocoyucan','Olintla','Oriental','Pahuatlán','Palmar de Bravo','Pantepec','Petlalcingo','Piaxtla','Puebla','Quecholac','Quimixtlán','Rafael Lara Grajales','Los Reyes de Juárez','San Andrés Cholula','San Antonio Cañada','San Diego la Mesa Tochimiltzingo','San Felipe Teotlalcingo','San Felipe Tepatlán','San Gabriel Chilac','San Gregorio Atzompa','San Jerónimo Tecuanipan','San Jerónimo Xayacatlán','San José Chiapa','San José Miahuatlán','San Juan Atenco','San Juan Atzompa','San Martín Texmelucan','San Martín Totoltepec','San Matías Tlalancaleca','San Miguel Ixitlán','San Miguel Xoxtla','San Nicolás Buenos Aires','San Nicolás de los Ranchos','San Pablo Anicano','San Pedro Cholula','San Pedro Yeloixtlahuaca','San Salvador el Seco','San Salvador el Verde','San Salvador Huixcolotla','San Sebastián Tlacotepec','Santa Catarina Tlaltempan','Santa Inés Ahuatempan','Santa Isabel Cholula','Santiago Miahuatlán','Huehuetlán el Grande','Santo Tomás Hueyotlipan','Soltepec','Tecali de Herrera','Tecamachalco','Tecomatlán','Tehuacán','Tehuitzingo','Tenampulco','Teopantlán','Teotlalco','Tepanco de López','Tepango de Rodríguez','Tepatlaxco de Hidalgo','Tepeaca','Tepemaxalco','Tepeojuma','Tepetzintla','Tepexco','Tepexi de Rodríguez','Tepeyahualco','Tepeyahualco de Cuauhtémoc','Tetela de Ocampo','Teteles de Ávila Castillo','Teziutlán','Tianguismanalco','Tilapa','Tlacotepec de Benito Juárez','Tlacuilotepec','Tlachichuca','Tlahuapan','Tlaltenango','Tlanepantla','Tlaola','Tlapacoya','Tlapanalá','Tlatlauquitepec','Tlaxco','Tochimilco','Tochtepec','Totoltepec de Guerrero','Tulcingo','Tuzamapan de Galeana','Tzicatlacoyan','Venustiano Carranza','Vicente Guerrero','Xayacatlán de Bravo','Xicotepec','Xicotlán','Xiutetelco','Xochiapulco','Xochiltepec','Xochitlán de Vicente Suárez','Xochitlán Todos Santos','Yaonáhuac','Yehualtepec','Zacapala','Zacapoaxtla','Zacatlán','Zapotitlán','Zapotitlán de Méndez','Zaragoza','Zautla','Zihuateutla','Zinacatepec','Zongozotla','Zoquiapan','Zoquitlán'];
+const MARCAS=['Acura','Audi','BAIC','BMW','BYD','Buick','Cadillac','Caterham','Changan','Chery','Chevrolet','Chirey','Chrysler','Cupra','Dodge','DS','FAW','Ferrari','Fiat','Ford','Freightliner','Geely','GMC','Hino','Honda','Hyundai','Infiniti','International','Isuzu','JAC','Jaguar','Jeep','Kia','Kenworth','Lamborghini','Land Rover','Lexus','Lincoln','Lotus','Mack','MAN','Mazda','McLaren','Mercedes-Benz','MG','MINI','Mitsubishi','Nissan','Peugeot','Porsche','RAM','Renault','SEAT','Scania','Smart','Subaru','Suzuki','Tesla','Toyota','Volkswagen','Volvo','Volvo Trucks','Yamaha','Kawasaki','Italika','Vento','Bajaj','Benelli','Ducati','Harley-Davidson','Indian','KTM','Aprilia','Vespa','Segway','Xiaomi','NIU','Otro / Captura manual'];
+const TIPOS_VEHICULO=['Automóvil','Sedán','SUV','Hatchback','Coupé','Convertible','Pickup','Van','Minivan','Wagon','Camioneta','Motocicleta','Motoneta','Scooter','Bicicleta','Patín eléctrico','Triciclo','Cuatrimoto','Camión','Torton','Tractocamión','Autobús','Microbús','Remolque','Semirremolque','Grúa','Maquinaria','Otro / Captura manual'];
+const ESTADOS_CIVILES=['Soltero(a)','Casado(a)','Unión libre','Divorciado(a)','Separado(a)','Viudo(a)','No se conoce','No aplica','Otro'];
+function selectOptions(arr,placeholder='Seleccionar'){return `<option value="">${placeholder}</option>`+arr.map(x=>`<option>${x}</option>`).join('');}
+function agregarVehiculo(){ contadorVehiculos++; const n=contadorVehiculos; const div=document.createElement('div'); div.className='card vehicle-card'; div.innerHTML=`<h3>VEHÍCULO ${n}</h3><div class="field"><label><input type="checkbox" class="v-desconocidos"> Se desconocen todos los datos del vehículo</label></div><div class="grid"><div class="field"><label>Placas</label><select class="v-placasTipo"><option value="">Seleccionar</option><option value="PLACAS">Placas</option><option value="SIN PLACAS">Sin placas</option><option value="PERMISO PARA CIRCULAR">Permiso para circular</option></select><input class="v-placas" placeholder="Número de placas o permiso"></div><div class="field"><label>Estado</label><select class="v-estado">${selectOptions(ESTADOS_MX)}</select></div><div class="field"><label>Marca</label><select class="v-marca">${selectOptions(MARCAS)}</select></div><div class="field"><label>Submarca</label><input class="v-submarca"></div><div class="field"><label>Tipo</label><select class="v-tipo">${selectOptions(TIPOS_VEHICULO)}</select></div><div class="field"><label>Modelo</label><select class="v-modelo">${Array.from({length:141},(_,i)=>`<option>${1900+i}</option>`).join('')}</select></div><div class="field"><label>Color</label><input class="v-color"></div><div class="field"><label>Número de serie/VIN</label><input class="v-serie"></div><div class="field"><label>Inventario de grúas</label><input class="v-inventarioGruas"></div><div class="field"><label><input type="checkbox" class="v-conductorDesconocido"> Se desconocen datos del conductor</label><label>Conductor</label><input class="v-conductor"></div><div class="field"><label>Edad</label><select class="v-edad">${opcionesEdad(11,100)}</select></div><div class="field"><label>Ocupación</label><input class="v-ocupacion"></div><div class="field"><label>Estado civil</label><select class="v-estadoCivil">${selectOptions(ESTADOS_CIVILES)}</select></div><div class="field full"><label>Daños materiales</label><textarea class="v-danos"></textarea></div></div><button class="delete" type="button" onclick="eliminarDinamico(this,'vehiculos')">🗑️ ELIMINAR VEHÍCULO</button>`; document.getElementById('vehiculos').appendChild(div); }
+
+function eliminarDinamico(btn,contenedor){ btn.parentElement.remove(); renumerarDinamicos(contenedor); actualizarRelacionesOccisos(); }
+function renumerarDinamicos(id){ const cont=document.getElementById(id); if(!cont)return; const cards=[...cont.querySelectorAll(':scope > .card')]; cards.forEach((c,i)=>{const h=c.querySelector('h3'); const titulo=id==='vehiculos'?'VEHÍCULO':id==='peatones'?'PEATÓN':id==='lesionados'?'LESIONADO':'OCCISO'; if(h)h.textContent=`${titulo} ${i+1}`;}); if(id==='vehiculos')contadorVehiculos=cards.length; if(id==='peatones')contadorPeatones=cards.length; if(id==='lesionados')contadorLesionados=cards.length; if(id==='muertos')contadorOccisos=cards.length; }
+
+/* =========================
+   PEATONES
+========================= */
+
+function agregarPeaton() {
+
+    contadorPeatones++;
+
+    const div = document.createElement("div");
+    div.className = "card";
+    div.id = "peaton-" + contadorPeatones;
+
+    div.innerHTML = `
+
+        <h3>PEATÓN ${contadorPeatones}</h3>
+
+        <div class="grid">
+
+            <div class="field">
+                <label>Nombre</label>
+                <input class="p-nombre">
+            </div>
+
+            <div class="field">
+                <label>Edad</label>
+                <select class="p-edad">${opcionesEdad(0,100)}</select>
+            </div>
+
+            <div class="field">
+                <label>Sexo</label>
+                <select class="p-sexo">
+                    <option value="">Seleccionar</option>
+                    <option>Masculino</option>
+                    <option>Femenino</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>Fecha de nacimiento</label>
+                <input type="date" class="p-fecha">
+            </div>
+
+            <div class="field full">
+                <label>Domicilio</label>
+                <input class="p-domicilio">
+            </div>
+
+            <div class="field">
+                <label>Escolaridad</label>
+                <input class="p-escolaridad">
+            </div>
+
+            <div class="field">
+                <label>Ocupación</label>
+                <input class="p-ocupacion">
+            </div>
+
+            <div class="field">
+                <label>Estado civil</label>
+                <select class="p-estadoCivil">${selectOptions(ESTADOS_CIVILES)}</select>
+            </div>
+
+            <div class="field full">
+                <label>Observaciones</label>
+                <textarea class="p-observaciones"></textarea>
+            </div>
+
+        </div>
+
+        <button class="delete" onclick="eliminarDinamico(this,'peatones')">
+            🗑️ ELIMINAR PEATÓN
+        </button>
+    `;
+
+    document.getElementById("peatones").appendChild(div);
+    actualizarRelacionesOccisos();
+}
+
+
+/* =========================
+   LESIONADOS
+========================= */
+
+function mostrarLesionados() {
+
+const valor = document.getElementById("hayLesionados").value;
+
+document.getElementById("contenedorLesionados")
+.classList.toggle("hidden", valor !== "si");
+
+}
+
+
+function agregarLesionado() {
+
+contadorLesionados++;
+
+const div = document.createElement("div");
+
+div.className = "card";
+
+div.innerHTML = `
+
+<h3>LESIONADO ${contadorLesionados}</h3>
+
+<div class="grid">
+
+<div class="field">
+<label>Nombre</label>
+<input class="l-nombre">
+</div>
+
+<div class="field">
+<label>Edad</label>
+<select class="l-edad">${opcionesEdad(0,100)}</select>
+</div>
+
+<div class="field">
+<label>Fecha de nacimiento</label>
+<input type="date" class="l-fecha">
+</div>
+
+<div class="field full"><label>Domicilio</label><input class="l-domicilio"></div><div class="field"><label>Teléfono</label><input class="l-telefono" inputmode="tel"></div>
+
+<div class="field">
+<label>Escolaridad</label>
+<input class="l-escolaridad">
+</div>
+
+<div class="field">
+<label>Ocupación</label>
+<input class="l-ocupacion">
+</div>
+
+<div class="field">
+<label>Estado civil</label>
+<select class="l-estadoCivil">${selectOptions(ESTADOS_CIVILES)}</select>
+</div>
+
+<div class="field">
+<label>¿Fue trasladado?</label>
+<select class="l-traslado">
+<option value="No">No</option>
+<option value="Sí">Sí</option>
+</select>
+</div>
+
+<div class="field full">
+<label>Hospital de traslado</label>
+<input class="l-hospital">
+</div>
+
+<div class="field">
+<label>¿Quién realizó la valoración?</label>
+<input class="l-valorador">
+</div>
+
+<div class="field">
+<label>Tipo de personal</label>
+<select class="l-tipoValorador">
+<option value="">Seleccionar</option>
+<option>Paramédico</option>
+<option>Médico</option>
+<option>Enfermero(a)</option>
+<option>Otro</option>
+</select>
+</div>
+
+<div class="field">
+<label>Ambulancia</label>
+<input class="l-ambulancia">
+</div>
+
+<div class="field">
+<label>Número de unidad</label>
+<input class="l-unidadAmbulancia">
+</div>
+
+<div class="field full">
+<label>Observaciones</label>
+<textarea class="l-observaciones"></textarea>
+</div>
+
+</div>
+
+<button class="delete" onclick="eliminarDinamico(this,'lesionados')">
+🗑️ ELIMINAR LESIONADO
+</button>
+
+`;
+
+document.getElementById("lesionados").appendChild(div);
+}
+
+
+/* =========================
+   OCCISOS
+========================= */
+
+function mostrarMuertos() {
+
+const valor = document.getElementById("hayMuertos").value;
+
+document.getElementById("contenedorMuertos")
+.classList.toggle("hidden", valor !== "si");
+
+}
+
+
+function agregarOcciso() {
+
+contadorOccisos++;
+
+const div = document.createElement("div");
+
+div.className = "card";
+
+div.innerHTML = `
+
+<h3>OCCISO ${contadorOccisos}</h3>
+
+<div class="grid">
+
+<div class="field">
+<label>Nombre</label>
+<input class="o-nombre">
+</div>
+
+<div class="field">
+<label>Edad</label>
+<select class="o-edad">${opcionesEdad(0,100)}</select>
+</div>
+
+<div class="field">
+<label>Fecha de nacimiento</label>
+<input type="date" class="o-fecha">
+</div>
+
+<div class="field full"><label>Domicilio</label><input class="o-domicilio"></div><div class="field"><label>CURP (opcional)</label><input class="o-curp" maxlength="18"></div>
+
+<div class="field">
+<label>Escolaridad</label>
+<input class="o-escolaridad">
+</div>
+
+<div class="field">
+<label>Ocupación</label>
+<input class="o-ocupacion">
+</div>
+
+<div class="field">
+<label>Estado civil</label>
+<select class="o-estadoCivil">${selectOptions(ESTADOS_CIVILES)}</select>
+</div>
+
+<div class="field full">
+<label>Persona que identifica</label>
+<input class="o-identifica">
+</div>
+
+<div class="field">
+<label>Parentesco</label>
+<input class="o-parentesco">
+</div>
+
+<div class="field">
+<label>Edad del identificador</label>
+<input class="o-edadIdentifica">
+</div>
+
+<div class="field">
+<label>Fecha de nacimiento del identificador</label>
+<input type="date" class="o-fechaIdentifica">
+</div>
+
+<div class="field full">
+<label>Domicilio del identificador</label>
+<input class="o-domicilioIdentifica">
+</div>
+
+<div class="field">
+<label>Ocupación del identificador</label>
+<input class="o-ocupacionIdentifica">
+</div>
+
+<div class="field">
+<label>Escolaridad del identificador</label>
+<input class="o-escolaridadIdentifica">
+</div>
+
+<div class="field">
+<label>Estado civil del identificador</label>
+<input class="o-estadoCivilIdentifica">
+</div>
+
+<div class="field full">
+<label>Posición cadavérica</label>
+<textarea class="o-posicion"></textarea>
+</div>
+
+<div class="field">
+<label>Sexo</label>
+<select class="o-sexo">
+<option value="">Seleccionar</option>
+<option>Masculino</option>
+<option>Femenino</option>
+</select>
+</div>
+
+<div class="field">
+<label>Edad aparente</label>
+<input class="o-edadAparente">
+</div>
+
+<div class="field">
+<label>Estatura</label>
+<input class="o-estatura">
+</div>
+
+<div class="field">
+<label>Complexión</label>
+<select class="o-complexion">
+<option value="">Seleccionar</option>
+<option>Delgada</option>
+<option>Media</option>
+<option>Robusta</option>
+</select>
+</div>
+
+<div class="field">
+<label>Tez</label>
+<select class="o-tez">
+<option value="">Seleccionar</option>
+<option>Clara</option>
+<option>Morena clara</option>
+<option>Morena</option>
+<option>Morena oscura</option>
+</select>
+</div>
+
+<div class="field">
+<label>Cara</label>
+<input class="o-cara">
+</div>
+
+<div class="field">
+<label>Cabello</label>
+<input class="o-cabello">
+</div>
+
+<div class="field">
+<label>Frente</label>
+<input class="o-frente">
+</div>
+
+<div class="field">
+<label>Cejas</label>
+<input class="o-cejas">
+</div>
+
+<div class="field">
+<label>Ojos</label>
+<input class="o-ojos">
+</div>
+
+<div class="field">
+<label>Nariz</label>
+<input class="o-nariz">
+</div>
+
+<div class="field">
+<label>Boca</label>
+<input class="o-boca">
+</div>
+
+<div class="field">
+<label>Labios</label>
+<input class="o-labios">
+</div>
+
+<div class="field">
+<label>Mentón</label>
+<input class="o-menton">
+</div>
+
+<div class="field">
+<label>Orejas</label>
+<input class="o-orejas">
+</div>
+
+<div class="field">
+<label>Bigote o barba</label>
+<input class="o-barba">
+</div>
+
+<div class="field full">
+<label>Señas particulares</label>
+<textarea class="o-senas"></textarea>
+</div>
+
+<div class="field full">
+<label>Vestimenta</label>
+<textarea class="o-vestimenta"></textarea>
+</div>
+
+<div class="field full">
+<label>Lesiones aparentes</label>
+<textarea class="o-lesiones"></textarea>
+</div>
+
+<div class="field full">
+<label>Traslado del occiso</label>
+<textarea class="o-traslado"></textarea>
+<div class="field">
+<label>¿Quién determina la muerte?</label>
+<input class="o-determina">
+</div>
+
+<div class="field">
+<label>Cargo / profesión</label>
+<input class="o-cargoDetermina">
+</div>
+
+<div class="field">
+<label>Hora de determinación</label>
+<input type="time" class="o-horaDetermina">
+</div>
+
+<div class="field">
+<label>Ambulancia</label>
+<input class="o-ambulancia">
+</div>
+
+<div class="field">
+<label>Paramédico</label>
+<input class="o-paramedico">
+</div>
+
+<div class="field">
+<label>Número de unidad</label>
+<input class="o-unidadAmbulancia">
+</div>
+
+<div class="field full">
+<label>Observaciones</label>
+<textarea class="o-observaciones"></textarea>
+</div>
+
+</div>
+
+<div class="field full">
+    <label>RELACIONÁNDOSE CON</label>
+    <select class="occiso-relacion">
+        <option value="">Seleccionar</option>
+    </select>
+</div>
+</div>
+
+<button class="delete" onclick="eliminarDinamico(this,'muertos')">
+🗑️ ELIMINAR OCCISO
+</button>
+
+`;
+
+document.getElementById("muertos").appendChild(div);
+    actualizarRelacionesOccisos();
+}
+
+
+document.addEventListener("input", function(e) {
+    if (e.target.closest("#vehiculos") || e.target.closest("#peatones")) {
+        actualizarRelacionesOccisos();
+    }
+});
+
+document.addEventListener("change", function(e) {
+    if (e.target.closest("#vehiculos") || e.target.closest("#peatones")) {
+        actualizarRelacionesOccisos();
+    }
+});
+
+
+/* =========================
+   RELACIÓN DE OCCISOS
+========================= */
+
+function actualizarRelacionesOccisos() {
+
+    document.querySelectorAll(".occiso-relacion").forEach(select => {
+
+        const valorActual = select.value;
+
+        select.innerHTML = '<option value="">Seleccionar</option>';
+
+        document.querySelectorAll("#vehiculos .card").forEach((v, i) => {
+            const marca = v.querySelector(".v-marca")?.value.trim() || "";
+            const tipo = v.querySelector(".v-tipo")?.value.trim() || "";
+            let descripcion = `Vehículo ${i + 1}`;
+
+            if (marca || tipo) {
+                descripcion += " — " + [marca, tipo].filter(Boolean).join(" ");
+            }
+
+            const option = document.createElement("option");
+            option.value = descripcion;
+            option.textContent = descripcion;
+            select.appendChild(option);
+        });
+
+        document.querySelectorAll("#peatones .card").forEach((p, i) => {
+
+            const nombre = p.querySelector(".p-nombre")?.value.trim() || "";
+            let descripcion = `Peatón ${i + 1}`;
+
+            if (nombre) {
+                descripcion += " — " + nombre;
+            }
+
+            const option = document.createElement("option");
+            option.value = descripcion;
+            option.textContent = descripcion;
+            select.appendChild(option);
+        });
+
+        const independiente = document.createElement("option");
+        independiente.value = "Independiente";
+        independiente.textContent = "Independiente";
+        select.appendChild(independiente);
+
+        if ([...select.options].some(o => o.value === valorActual)) {
+            select.value = valorActual;
+        }
+    });
+}
+
+
+
+function obtenerGeoreferencia(){ if(!navigator.geolocation){alert("Este dispositivo no permite obtener la ubicación.");return;} navigator.geolocation.getCurrentPosition(pos=>{ document.getElementById("georeferencia").value=pos.coords.latitude.toFixed(6)+", "+pos.coords.longitude.toFixed(6); },()=>alert("No fue posible obtener la ubicación. Verifica el permiso de ubicación."),{enableHighAccuracy:true,timeout:15000,maximumAge:0}); }
+function mostrarCompetencia(){ document.getElementById("datosCompetencia")?.classList.toggle("hidden",document.getElementById("competencia")?.value!=="Sí"); }
+function mostrarAsegurados(){ document.getElementById("contenedorAsegurados")?.classList.toggle("hidden",document.getElementById("personasAseguradas")?.value!=="Sí"); }
+function agregarAsegurado(){ const div=document.createElement("div"); div.className="card asegurado-card"; const conductores=[...document.querySelectorAll("#vehiculos .v-conductor")].map((x,i)=>x.value.trim()?`<option value="${x.value.replace(/"/g,'&quot;')}">Vehículo ${i+1} — ${x.value.replace(/</g,'&lt;')}</option>`:'').join(''); div.innerHTML=`<h3>PERSONA ASEGURADA</h3><div class="grid"><div class="field"><label>Origen</label><select class="a-origen" onchange="this.closest('.card').querySelector('.a-manual').classList.toggle('hidden',this.value!=='MANUAL')"><option value="CONDUCTOR">Conductor de vehículo</option><option value="MANUAL">Captura manual</option></select></div><div class="field"><label>Conductor</label><select class="a-conductor"><option value="">Seleccionar conductor</option>${conductores}</select></div><div class="field"><label>CURP (opcional)</label><input class="a-curp" maxlength="18"></div><div class="field full"><label>Datos manuales</label><textarea class="a-manual hidden"></textarea></div></div><button type="button" class="delete" onclick="this.parentElement.remove()">🗑️ ELIMINAR</button>`; document.getElementById('asegurados').appendChild(div); }
+const PERITOS_CATALOGO=['Policía 2938 Víctor Manuel Olarte Sevilla','Policía 3102 José Juan Romero Cielo','Policía Primero 47 Marcos Zamora Martínez','Policía 3008 Hector Montiel Ortiz','Policía 2817 Jaír Rojas Arroyo','Policía 2037 Caleb Cortes Salgado','Policía 2814 Héctor Pérez Ávila','Policía 2767 José Luis Rubi Madrid','Policía 2914 Vicente Orlando González Cruz','Policía 2734 Fernando Sánchez Gálvez','Oficial Joaquín Sánchez Jimiénez','Policía 2777 Rafael Ávila Andrade','Policía 3089 Erika Hernández Pérez','Policía 2762 Rodolfo Hugo Rojas Meza','Policía 2908 Rogelio Ordóñez Patiño','Policía Tercero 595 Juan Manuel Vivar Valencia','Policía 2888 Juan Carlos Cortés Ramirez','Policía 2746 Fredy Martinez Munguía','Policía Tercero 587 Antonio Marquez García','Policía 2922 Martin Perez Villegas','Policía 2997 Claudio Villanueva Contreras','Policía 1794 Monica del Carmen Cortés Hernandez','Policía 1798 Evelia Magaña Solis','Policía Tercero 601 Mario Gavito López','Policía Tercero 515 Gustavo Ángel Juarez Ramirez','Policía 4153 Adriana Sarai Ramírez Hernández','Policía 1827 Alejandro Sanchez Andrade'];
+function agregarPerito(){ const div=document.createElement('div'); div.className='card perito-card'; div.innerHTML=`<div class="grid"><div class="field"><label>Perito</label><select class="perito-nombre">${selectOptions(PERITOS_CATALOGO,'Seleccionar perito')}</select></div><div class="field"><label>O captura manual</label><input class="perito-manual" placeholder="Nombre completo"></div></div><button type="button" class="delete" onclick="this.parentElement.remove()">🗑️ ELIMINAR</button>`; const sel=div.querySelector('.perito-nombre'); div.querySelector('.perito-manual').addEventListener('input',e=>{if(e.target.value.trim())sel.value='';}); document.getElementById('peritosSeleccionados').appendChild(div); }
+function initCatalogos(){ const m=document.getElementById('municipio'); if(m) m.innerHTML=selectOptions(MUNICIPIOS_PUEBLA,'Seleccionar municipio'); const dl=document.getElementById('coloniasCatalogo'); if(dl){ ['Centro','San Manuel','La Paz','Amalucan','Bosques de San Sebastián','Loma Bella','San Baltazar Campeche','San Felipe Hueyotlipan','San Francisco','Santiago Momoxpan','San Pedro Cholula Centro','Cholula de Rivadavia Centro','Momoxpan','Reserva Territorial Atlixcáyotl','Las Ánimas','Huexotitla','El Carmen','La Margarita','Jardines de San Manuel','La Hacienda','Santa Cruz Buenavista'].forEach(x=>{const o=document.createElement('option');o.value=x;dl.appendChild(o);}); } mostrarCompetencia(); mostrarAsegurados(); }
+document.addEventListener('DOMContentLoaded',()=>{initCatalogos(); document.getElementById("usarInspeccion")?.addEventListener("change",e=>document.getElementById("inspeccion")?.classList.toggle("hidden",!e.target.checked));});
+
+/* =========================
+   UTILIDAD
+========================= */
+
+function valor(id) {
+if(id === "coloniaMunicipio"){ const c=document.getElementById("colonia")?.value.trim()||""; const m=document.getElementById("municipio")?.value.trim()||""; return [c,m].filter(Boolean).join(", "); }
+const elemento = document.getElementById(id);
+
+if (!elemento) return "";
+
+return elemento.value.trim();
+
+}
+
+
+/* =========================
+   GENERAR INFORME
+========================= */
+
+function linea(label, value) {
+    value = (value ?? "").toString().trim();
+    return value ? label + ": " + value + "\n" : "";
+}
+
+function bloqueTitulo(titulo) { return "*" + titulo + "*\n\n"; }
+function lineaNegrita(label,value){ value=(value??"").toString().trim(); return value ? "*"+label+":*\n"+value+"\n" : ""; }
+
+function fechaVisible(value) {
+    if (!value) return "";
+    const partes = value.split("-");
+    if (partes.length !== 3) return value;
+    return partes[2] + "/" + partes[1] + "/" + partes[0];
+}
+
+function horaVisible(value) {
+    if (!value) return "";
+    return value + " horas";
+}
+
+function generarInforme() {
+
+    let texto = "";
+
+    texto += bloqueTitulo("HECHO DE TRÁNSITO");
+    texto += bloqueTitulo("POLICÍA ESTATAL DE CAMINOS");
+    texto += bloqueTitulo("REGIÓN VIII ATLIXCO");
+    texto += bloqueTitulo("DIRECCIÓN DE LA POLICÍA ESTATAL DE CAMINOS");
+
+    texto += linea("FECHA", fechaVisible(valor("fecha")));
+    texto += lineaNegrita("FOLIO DE C-5", valor("folio"));
+    texto += lineaNegrita("HORA DE AVISO", horaVisible(valor("horaAviso")));
+    texto += lineaNegrita("HORA DE ARRIBO", horaVisible(valor("horaArribo")));
+    texto += "\n";
+
+    texto += lineaNegrita("COLONIA Y MUNICIPIO", valor("coloniaMunicipio"));
+    texto += lineaNegrita("LUGAR DE INTERVENCIÓN", valor("lugarIntervencion"));
+    texto += lineaNegrita("GEOREFERENCIA", valor("georeferencia"));
+    texto += lineaNegrita("HECHO DE TRÁNSITO", valor("hechoTransito"));
+    texto += lineaNegrita("TIPO DE PAVIMENTO", valor("pavimento"));
+    texto += lineaNegrita("CLIMA", valor("clima"));
+    texto += "\n";
+
+    /* VEHÍCULOS */
+    const vehiculos = document.querySelectorAll("#vehiculos .card");
+    texto += bloqueTitulo("VEHÍCULOS INVOLUCRADOS: (" + vehiculos.length + ")");
+
+    if (vehiculos.length === 0) {
+        texto += "No se registraron vehículos involucrados.\n\n";
+    } else {
+        vehiculos.forEach((v, i) => {
+            texto += bloqueTitulo("VEHÍCULO " + (i + 1));
+            if(v.querySelector(".v-desconocidos")?.checked) texto += linea("DATOS DESCONOCIDOS DEL VEHÍCULO","Sí");
+            if(v.querySelector(".v-conductorDesconocido")?.checked) texto += linea("DATOS DESCONOCIDOS DEL CONDUCTOR","Sí");
+            texto += linea("PLACAS", v.querySelector(".v-placas")?.value);
+            texto += linea("TIPO DE PLACA/PERMISO", v.querySelector(".v-placasTipo")?.value);
+            texto += linea("ESTADO", v.querySelector(".v-estado")?.value);
+            texto += linea("MARCA", v.querySelector(".v-marca")?.value);
+            texto += linea("SUBMARCA", v.querySelector(".v-submarca")?.value);
+            texto += linea("TIPO", v.querySelector(".v-tipo")?.value);
+            texto += linea("MODELO", v.querySelector(".v-modelo")?.value);
+            texto += linea("COLOR", v.querySelector(".v-color")?.value);
+            texto += linea("NÚMERO DE SERIE/VIN", v.querySelector(".v-serie")?.value);
+            texto += linea("INVENTARIO DE GRÚAS", v.querySelector(".v-inventarioGruas")?.value);
+            texto += linea("CONDUCTOR", v.querySelector(".v-conductor")?.value);
+            texto += linea("EDAD", v.querySelector(".v-edad")?.value);
+            texto += linea("OCUPACIÓN", v.querySelector(".v-ocupacion")?.value);
+            texto += linea("ESTADO CIVIL", v.querySelector(".v-estadoCivil")?.value);
+            texto += linea("DAÑOS MATERIALES", v.querySelector(".v-danos")?.value);
+            texto += "\n";
+        });
+    }
+
+    /* PEATONES */
+    const peatones = document.querySelectorAll("#peatones .card");
+    if (peatones.length > 0) {
+        texto += bloqueTitulo("PEATONES INVOLUCRADOS: (" + peatones.length + ")");
+
+        peatones.forEach((p, i) => {
+            texto += bloqueTitulo("PEATÓN " + (i + 1));
+            texto += linea("NOMBRE", p.querySelector(".p-nombre")?.value);
+            texto += linea("EDAD", p.querySelector(".p-edad")?.value);
+            texto += linea("SEXO", p.querySelector(".p-sexo")?.value);
+            texto += linea("FECHA DE NACIMIENTO", fechaVisible(p.querySelector(".p-fecha")?.value));
+            texto += linea("DOMICILIO", p.querySelector(".p-domicilio")?.value);
+            texto += linea("ESCOLARIDAD", p.querySelector(".p-escolaridad")?.value);
+            texto += linea("OCUPACIÓN", p.querySelector(".p-ocupacion")?.value);
+            texto += linea("ESTADO CIVIL", p.querySelector(".p-estadoCivil")?.value);
+            texto += linea("OBSERVACIONES", p.querySelector(".p-observaciones")?.value);
+            texto += "\n";
+        });
+    }
+
+    /* LESIONADOS */
+    const lesionados = document.querySelectorAll("#lesionados .card");
+    if (valor("hayLesionados") === "si" || lesionados.length > 0) {
+        texto += bloqueTitulo("LESIONADOS: (" + lesionados.length + ")");
+
+        if (lesionados.length === 0) {
+            texto += "Se indicó que hubo lesionados, pero no se registraron datos.\n\n";
+        } else {
+            lesionados.forEach((l, i) => {
+                texto += bloqueTitulo("LESIONADO " + (i + 1));
+                texto += linea("NOMBRE", l.querySelector(".l-nombre")?.value);
+                texto += linea("EDAD", l.querySelector(".l-edad")?.value);
+                texto += linea("TELÉFONO", l.querySelector(".l-telefono")?.value);
+                texto += linea("FECHA DE NACIMIENTO", fechaVisible(l.querySelector(".l-fecha")?.value));
+                texto += linea("DOMICILIO", l.querySelector(".l-domicilio")?.value);
+                texto += linea("ESCOLARIDAD", l.querySelector(".l-escolaridad")?.value);
+                texto += linea("OCUPACIÓN", l.querySelector(".l-ocupacion")?.value);
+                texto += linea("ESTADO CIVIL", l.querySelector(".l-estadoCivil")?.value);
+                texto += linea("TRASLADO", l.querySelector(".l-traslado")?.value);
+                texto += linea("HOSPITAL DE TRASLADO", l.querySelector(".l-hospital")?.value);
+                texto += linea("QUIEN REALIZÓ LA VALORACIÓN", l.querySelector(".l-valorador")?.value);
+                texto += linea("TIPO DE PERSONAL", l.querySelector(".l-tipoValorador")?.value);
+                texto += linea("AMBULANCIA", l.querySelector(".l-ambulancia")?.value);
+                texto += linea("NÚMERO DE UNIDAD", l.querySelector(".l-unidadAmbulancia")?.value);
+                texto += linea("OBSERVACIONES", l.querySelector(".l-observaciones")?.value);
+                texto += "\n";
+            });
+        }
+    } else {
+        texto += "LESIONADOS: NO\n\n";
+    }
+
+    /* OCCISOS */
+    const occisos = document.querySelectorAll("#muertos .card");
+    if (valor("hayMuertos") === "si" || occisos.length > 0) {
+        texto += bloqueTitulo("MUERTOS: (" + occisos.length + ")");
+
+        if (occisos.length === 0) {
+            texto += "Se indicó que hubo personas fallecidas, pero no se registraron datos.\n\n";
+        } else {
+            occisos.forEach((o, i) => {
+                texto += bloqueTitulo("OCCISO " + (i + 1));
+
+                texto += linea("NOMBRE", o.querySelector(".o-nombre")?.value);
+                texto += linea("EDAD", o.querySelector(".o-edad")?.value);
+                texto += linea("CURP", o.querySelector(".o-curp")?.value);
+                texto += linea("FECHA DE NACIMIENTO", fechaVisible(o.querySelector(".o-fecha")?.value));
+                texto += linea("DOMICILIO", o.querySelector(".o-domicilio")?.value);
+                texto += linea("ESCOLARIDAD", o.querySelector(".o-escolaridad")?.value);
+                texto += linea("OCUPACIÓN", o.querySelector(".o-ocupacion")?.value);
+                texto += linea("ESTADO CIVIL", o.querySelector(".o-estadoCivil")?.value);
+                texto += "\n";
+
+                texto += bloqueTitulo("PERSONA QUE LO IDENTIFICA");
+                texto += linea("NOMBRE", o.querySelector(".o-identifica")?.value);
+                texto += linea("PARENTESCO", o.querySelector(".o-parentesco")?.value);
+                texto += linea("EDAD", o.querySelector(".o-edadIdentifica")?.value);
+                texto += linea("FECHA DE NACIMIENTO", fechaVisible(o.querySelector(".o-fechaIdentifica")?.value));
+                texto += linea("DOMICILIO", o.querySelector(".o-domicilioIdentifica")?.value);
+                texto += linea("OCUPACIÓN", o.querySelector(".o-ocupacionIdentifica")?.value);
+                texto += linea("ESCOLARIDAD", o.querySelector(".o-escolaridadIdentifica")?.value);
+                texto += linea("ESTADO CIVIL", o.querySelector(".o-estadoCivilIdentifica")?.value);
+                texto += "\n";
+
+                texto += bloqueTitulo("POSICIÓN CADAVÉRICA");
+                texto += (o.querySelector(".o-posicion")?.value || "").trim() + "\n\n";
+
+                texto += bloqueTitulo("MEDIA FILIACIÓN");
+                texto += linea("SEXO", o.querySelector(".o-sexo")?.value);
+                texto += linea("EDAD APARENTE", o.querySelector(".o-edadAparente")?.value);
+                texto += linea("ESTATURA", o.querySelector(".o-estatura")?.value);
+                texto += linea("COMPLEXIÓN", o.querySelector(".o-complexion")?.value);
+                texto += linea("TEZ", o.querySelector(".o-tez")?.value);
+                texto += linea("CARA", o.querySelector(".o-cara")?.value);
+                texto += linea("CABELLO", o.querySelector(".o-cabello")?.value);
+                texto += linea("FRENTE", o.querySelector(".o-frente")?.value);
+                texto += linea("CEJAS", o.querySelector(".o-cejas")?.value);
+                texto += linea("OJOS", o.querySelector(".o-ojos")?.value);
+                texto += linea("NARIZ", o.querySelector(".o-nariz")?.value);
+                texto += linea("BOCA", o.querySelector(".o-boca")?.value);
+                texto += linea("LABIOS", o.querySelector(".o-labios")?.value);
+                texto += linea("MENTÓN", o.querySelector(".o-menton")?.value);
+                texto += linea("OREJAS", o.querySelector(".o-orejas")?.value);
+                texto += linea("BIGOTE O BARBA", o.querySelector(".o-barba")?.value);
+                texto += linea("SEÑAS PARTICULARES", o.querySelector(".o-senas")?.value);
+                texto += linea("VESTIMENTA", o.querySelector(".o-vestimenta")?.value);
+                texto += linea("LESIONES APARENTES", o.querySelector(".o-lesiones")?.value);
+                texto += linea("TRASLADO DEL OCCISO", o.querySelector(".o-traslado")?.value);
+                texto += linea("QUIEN DETERMINA LA MUERTE", o.querySelector(".o-determina")?.value);
+                texto += linea("CARGO / PROFESIÓN", o.querySelector(".o-cargoDetermina")?.value);
+                texto += linea("HORA DE DETERMINACIÓN", horaVisible(o.querySelector(".o-horaDetermina")?.value));
+                texto += linea("AMBULANCIA", o.querySelector(".o-ambulancia")?.value);
+                texto += linea("PARAMÉDICO", o.querySelector(".o-paramedico")?.value);
+                texto += linea("NÚMERO DE UNIDAD", o.querySelector(".o-unidadAmbulancia")?.value);
+                texto += linea("OBSERVACIONES", o.querySelector(".o-observaciones")?.value);
+                texto += linea("RELACIONÁNDOSE CON", o.querySelector(".occiso-relacion")?.value);
+                texto += "\n";
+            });
+        }
+    } else {
+        texto += "MUERTOS: NO\n\n";
+    }
+
+    /* RESTO DEL INFORME */
+    if(document.getElementById("usarInspeccion")?.checked && valor("inspeccion")){ texto += bloqueTitulo("INSPECCIÓN OCULAR DEL LUGAR DE LOS HECHOS"); texto += valor("inspeccion") + "\n\n"; }
+
+    texto += bloqueTitulo("MECÁNICA DEL HECHO");
+    texto += (valor("mecanica") || "NO APLICA") + "\n\n";
+
+    texto += bloqueTitulo("DAÑOS A LA INFRAESTRUCTURA O MEDIO AMBIENTE");
+    texto += linea("", valor("danosInfra")).replace(/^: /, "");
+    if (valor("descripcionDanos")) texto += valor("descripcionDanos") + "\n";
+    texto += "\n";
+
+    texto += bloqueTitulo("PERSONAS ASEGURADAS"); texto += linea("", valor("personasAseguradas")).replace(/^: /, ""); document.querySelectorAll("#asegurados .card").forEach((a,i)=>{ texto += bloqueTitulo("PERSONA ASEGURADA "+(i+1)); texto += linea("ORIGEN",a.querySelector(".a-origen")?.value); texto += linea("CONDUCTOR",a.querySelector(".a-conductor")?.value); texto += linea("CURP",a.querySelector(".a-curp")?.value); texto += linea("DATOS MANUALES",a.querySelector(".a-manual")?.value); }); texto += "\n";
+
+    texto += bloqueTitulo("COMPETENCIA MINISTERIAL");
+    texto += linea("", valor("competencia")).replace(/^: /, "") + "\n"; if(valor("competencia")==="Sí"){ texto += linea("NÚMERO DE CDI",valor("numeroCDI")); texto += linea("AGENTE DEL MINISTERIO PÚBLICO QUE LA INICIA",valor("agenteMP")); } texto += "\n";
+
+    texto += bloqueTitulo("AUTORIDADES EN EL LUGAR");
+    texto += (valor("autoridades") || "NO APLICA") + "\n\n";
+
+    texto += bloqueTitulo("SERVICIOS DE EMERGENCIA Y/O AUXILIARES");
+    texto += (valor("servicios") || "NO APLICA") + "\n\n";
+
+    texto += bloqueTitulo("ACCIONES REALIZADAS");
+    texto += (valor("acciones") || "NO APLICA") + "\n\n";
+
+    texto += bloqueTitulo("PERITOS QUE ATIENDEN E INFORMAN"); document.querySelectorAll("#peritosSeleccionados .perito-card").forEach((p,i)=>{ const n=p.querySelector(".perito-nombre")?.value||p.querySelector(".perito-manual")?.value||""; texto += linea("PERITO "+(i+1),n); }); texto += "\n"; texto += linea("UNIDAD OFICIAL / C.R.P.", valor("unidadOficial"));
+    texto += "\n";
+
+    texto += bloqueTitulo("GRÚAS");
+    texto += (valor("gruas") || "NO APLICA") + "\n\n";
+
+    texto += bloqueTitulo("CONCLUSIÓN");
+    texto += (valor("conclusion") || "NO APLICA") + "\n\n";
+
+    if (valor("horaTermino")) {
+        texto += bloqueTitulo("HORA DE TÉRMINO");
+        texto += horaVisible(valor("horaTermino"));
+    }
+
+    return texto.trim();
+}
+
+function generarVistaPrevia() {
+    const texto = generarInforme();
+    document.getElementById("vistaPrevia").value = texto;
+    return texto;
+}
+
+async function copiarInforme() {
+    const texto = generarVistaPrevia();
+
+    try {
+        await navigator.clipboard.writeText(texto);
+        alert("Informe copiado al portapapeles.");
+    } catch (e) {
+        const area = document.getElementById("vistaPrevia");
+        area.focus();
+        area.select();
+        document.execCommand("copy");
+        alert("Informe copiado al portapapeles.");
+    }
+}
+
+
+/* =========================
+   WHATSAPP
+========================= */
+
+function guardarBorrador() {
+    const datos = {};
+    document.querySelectorAll("input, select, textarea").forEach((el, i) => {
+        datos[el.id ? "id:" + el.id : "pos:" + i] = el.value;
+    });
+    localStorage.setItem("informeTransitoBorrador", JSON.stringify(datos));
+    alert("Borrador guardado.");
+}
+
+function cargarBorrador() {
+    const raw = localStorage.getItem("informeTransitoBorrador");
+    if (!raw) {
+        alert("No hay un borrador guardado.");
+        return;
+    }
+    const datos = JSON.parse(raw);
+    document.querySelectorAll("input, select, textarea").forEach((el, i) => {
+        const key = el.id ? "id:" + el.id : "pos:" + i;
+        if (Object.prototype.hasOwnProperty.call(datos, key)) el.value = datos[key];
+    });
+    if (typeof mostrarLesionados === "function") mostrarLesionados();
+    if (typeof mostrarMuertos === "function") mostrarMuertos();
+    alert("Borrador recuperado.");
+}
+
+function generarWhatsApp() {
+    guardarBorrador();
+
+    const texto = generarVistaPrevia();
+
+    const url =
+    "https://wa.me/?text=" +
+    encodeURIComponent(texto);
+
+    window.open(url, "_blank");
+}
+
+
+/* =========================
+   LIMPIAR
+========================= */
+
+function limpiarFormulario() {
+
+if (!confirm("¿Deseas borrar todo el informe?"))
+return;
+
+document.querySelectorAll("input, textarea").forEach(el => {
+el.value = "";
+});
+
+document.querySelectorAll("select").forEach(el => {
+el.selectedIndex = 0;
+});
+
+document.getElementById("vehiculos").innerHTML = "";
+document.getElementById("peatones").innerHTML = "";
+document.getElementById("lesionados").innerHTML = "";
+document.getElementById("muertos").innerHTML = "";
+
+document.getElementById("contenedorLesionados")
+.classList.add("hidden");
+
+document.getElementById("contenedorMuertos")
+.classList.add("hidden");
+
+contadorVehiculos = 0;
+contadorPeatones = 0;
+contadorLesionados = 0;
+contadorOccisos = 0;
+
+}
+
+</script>
+
+
+<section id="seccionGestionInformes">
+    <h2>📁 GESTIÓN DE INFORMES</h2>
+    <div class="gestion-grid">
+        <button type="button" class="btn-success" onclick="nuevoInforme()">🆕 NUEVO INFORME</button>
+        <button type="button" onclick="guardarInforme()">💾 GUARDAR INFORME</button>
+        <button type="button" class="btn-secondary" onclick="mostrarInformesGuardados()">📂 INFORMES GUARDADOS</button>
+    </div>
+    <div id="listaInformes"></div>
+</section>
+
+
+<script id="fase5-js">
+/* =========================
+   FASE 5 — GESTIÓN DE INFORMES
+   ========================= */
+
+const STORAGE_INFORMES = "informesTransito";
+let informeActualId = null;
+
+function todosLosInformes() {
+    try {
+        const datos = JSON.parse(localStorage.getItem(STORAGE_INFORMES) || "[]");
+        return Array.isArray(datos) ? datos : [];
+    } catch (e) {
+        console.error(e);
+        return [];
+    }
+}
+
+function guardarTodosLosInformes(lista) {
+    localStorage.setItem(STORAGE_INFORMES, JSON.stringify(lista));
+}
+
+function uidInforme() {
+    return "INF-" + Date.now() + "-" + Math.random().toString(36).slice(2, 7).toUpperCase();
+}
+
+function textoSeguro(v) {
+    return v == null ? "" : String(v);
+}
+
+function leerValorElemento(el) {
+    if (!el) return "";
+    if (el.type === "checkbox") return !!el.checked;
+    return el.value ?? "";
+}
+
+/* Guarda TODO el formulario de manera estructurada, incluyendo tarjetas dinámicas. */
+function serializarFormulario() {
+    const data = {
+        static: {},
+        vehiculos: [],
+        peatones: [],
+        lesionados: [],
+        occisos: [],
+        asegurados: [],
+        peritos: []
+    };
+
+    document.querySelectorAll("input[id], select[id], textarea[id]").forEach(el => {
+        if (el.closest("#vistaPrevia")) return;
+        if (el.closest("#seccionGestionInformes")) return;
+        if (el.id) data.static[el.id] = leerValorElemento(el);
+    });
+
+    // También guarda controles con name, aunque no tengan id.
+    document.querySelectorAll("input[name], select[name], textarea[name]").forEach(el => {
+        if (el.closest("#vistaPrevia")) return;
+        if (el.closest("#seccionGestionInformes")) return;
+        if (!el.id && el.name) data.static["name:" + el.name] = leerValorElemento(el);
+    });
+
+    function leerTarjetas(selector, mapa) {
+        document.querySelectorAll(selector).forEach(card => {
+            const obj = {};
+            card.querySelectorAll("input, select, textarea").forEach(el => {
+                let clave = el.dataset.persistKey || el.className || el.name || el.id;
+                if (!clave) return;
+                clave = clave.split(" ")[0];
+                obj[clave] = leerValorElemento(el);
+            });
+            mapa.push(obj);
+        });
+    }
+
+    leerTarjetas("#vehiculos .vehicle-card, #vehiculos .vehiculo-card, .vehicle-card, .vehiculo-card", data.vehiculos);
+    leerTarjetas("#peatones .peaton-card, .peaton-card", data.peatones);
+    leerTarjetas("#lesionados .lesionado-card, .lesionado-card", data.lesionados);
+    leerTarjetas("#muertos .occiso-card, .occiso-card", data.occisos);
+
+    // Si la estructura de las tarjetas usa otra clase, conserva un respaldo por contenedor.
+    function leerPorContenedor(id, destino) {
+        const cont = document.getElementById(id);
+        if (!cont || destino.length) return;
+        Array.from(cont.children).forEach(card => {
+            const obj = {};
+            card.querySelectorAll("input, select, textarea").forEach(el => {
+                const clave = el.dataset.persistKey || el.className || el.name || el.id;
+                if (clave) obj[clave.split(" ")[0]] = leerValorElemento(el);
+            });
+            destino.push(obj);
+        });
+    }
+
+    leerPorContenedor("vehiculos", data.vehiculos);
+    leerPorContenedor("peatones", data.peatones);
+    leerPorContenedor("lesionados", data.lesionados);
+    leerPorContenedor("muertos", data.occisos);
+    document.querySelectorAll("#asegurados .asegurado-card").forEach(card=>{const o={}; card.querySelectorAll("input,select,textarea").forEach(el=>{const k=el.dataset.persistKey||el.className;if(k)o[k.split(" ")[0]]=leerValorElemento(el)});data.asegurados.push(o);});
+    document.querySelectorAll("#peritosSeleccionados .perito-card").forEach(card=>{const o={}; card.querySelectorAll("input,select,textarea").forEach(el=>{const k=el.dataset.persistKey||el.className;if(k)o[k.split(" ")[0]]=leerValorElemento(el)});data.peritos.push(o);});
+
+    return data;
+}
+
+function ponerValorEnElemento(el, valor) {
+    if (!el) return;
+    if (el.type === "checkbox") {
+        el.checked = !!valor;
+    } else {
+        el.value = valor == null ? "" : valor;
+    }
+}
+
+function restaurarEstáticos(data) {
+    if (!data || !data.static) return;
+
+    Object.entries(data.static).forEach(([key, valor]) => {
+        let el = null;
+        if (key.startsWith("name:")) {
+            el = document.querySelector(`[name="${CSS.escape(key.slice(5))}"]`);
+        } else {
+            el = document.getElementById(key);
+        }
+        ponerValorEnElemento(el, valor);
+    });
+}
+
+/* Encuentra el campo de una tarjeta por id/clase/nombre y restaura su valor. */
+function restaurarTarjeta(card, obj) {
+    if (!obj) return;
+    const elementos = Array.from(card.querySelectorAll("input, select, textarea"));
+
+    Object.entries(obj).forEach(([clave, valor]) => {
+        const base = clave.split(" ")[0];
+        let el = elementos.find(x =>
+            x.dataset.persistKey === clave ||
+            x.className === clave ||
+            x.classList.contains(base) ||
+            x.name === clave ||
+            x.id === clave
+        );
+
+        if (!el) {
+            el = elementos.find(x => (x.className || "").split(" ").includes(base));
+        }
+        ponerValorEnElemento(el, valor);
+    });
+}
+
+function eliminarTarjetas(id, botonSelector) {
+    const cont = document.getElementById(id);
+    if (!cont) return;
+    cont.innerHTML = "";
+    if (id === "vehiculos") window.contadorVehiculos = 0;
+    if (id === "peatones") window.contadorPeatones = 0;
+    if (id === "lesionados") window.contadorLesionados = 0;
+    if (id === "muertos") window.contadorOccisos = 0;
+}
+
+function reconstruirTarjetas(data) {
+    // Requiere que existan las funciones del proyecto base.
+    eliminarTarjetas("vehiculos");
+    eliminarTarjetas("peatones");
+    eliminarTarjetas("lesionados");
+    eliminarTarjetas("muertos");
+
+    (data.vehiculos || []).forEach(obj => {
+        if (typeof agregarVehiculo === "function") {
+            agregarVehiculo();
+            const cards = document.querySelectorAll("#vehiculos .vehicle-card, #vehiculos .vehiculo-card, .vehicle-card, .vehiculo-card");
+            restaurarTarjeta(cards[cards.length - 1], obj);
+        }
+    });
+
+    (data.peatones || []).forEach(obj => {
+        if (typeof agregarPeaton === "function") {
+            agregarPeaton();
+            const cards = document.querySelectorAll("#peatones .peaton-card, .peaton-card, #peatones .card");
+            restaurarTarjeta(cards[cards.length - 1], obj);
+        }
+    });
+
+    (data.lesionados || []).forEach(obj => {
+        if (typeof agregarLesionado === "function") {
+            agregarLesionado();
+            const cards = document.querySelectorAll("#lesionados .lesionado-card, .lesionado-card, #lesionados .card");
+            restaurarTarjeta(cards[cards.length - 1], obj);
+        }
+    });
+
+    (data.occisos || []).forEach(obj => {
+        if (typeof agregarOcciso === "function") {
+            agregarOcciso();
+            const cards = document.querySelectorAll("#muertos .occiso-card, .occiso-card, #muertos .card");
+            restaurarTarjeta(cards[cards.length - 1], obj);
+        }
+    });
+    (data.asegurados || []).forEach(obj => { agregarAsegurado(); const cards=document.querySelectorAll("#asegurados .asegurado-card"); restaurarTarjeta(cards[cards.length-1],obj); });
+    (data.peritos || []).forEach(obj => { agregarPerito(); const cards=document.querySelectorAll("#peritosSeleccionados .perito-card"); restaurarTarjeta(cards[cards.length-1],obj); });
+
+    if (typeof actualizarRelacionesOccisos === "function") {
+        actualizarRelacionesOccisos();
+    }
+
+    // Algunos proyectos usan funciones de actualización de totales.
+    if (typeof actualizarContadores === "function") actualizarContadores();
+}
+
+/* Crea un objeto completo para guardar. */
+function capturarInforme() {
+    const datos = serializarFormulario();
+    const fecha = datos.static.fecha || datos.static.fechaHecho || datos.static.fechaInforme || "";
+    const folio = datos.static.folio || datos.static.folioC5 || datos.static.folioC5Input || "";
+    const municipio = datos.static.municipio || datos.static.coloniaMunicipio || datos.static.municipioLugar || "";
+    const tipo = datos.static.tipoHecho || datos.static.hechoTransito || "Hecho de tránsito";
+
+    return {
+        id: informeActualId || uidInforme(),
+        creado: new Date().toISOString(),
+        actualizado: new Date().toISOString(),
+        metadata: {
+            fecha: textoSeguro(fecha),
+            folio: textoSeguro(folio),
+            municipio: textoSeguro(municipio),
+            tipo: textoSeguro(tipo)
+        },
+        data: datos
+    };
+}
+
+function guardarInforme(silencioso = false) {
+    const nuevo = capturarInforme();
+    const lista = todosLosInformes();
+    const indice = lista.findIndex(x => x.id === nuevo.id);
+
+    if (indice >= 0) {
+        nuevo.creado = lista[indice].creado || nuevo.creado;
+        lista[indice] = nuevo;
+    } else {
+        lista.unshift(nuevo);
+    }
+
+    informeActualId = nuevo.id;
+    guardarTodosLosInformes(lista);
+
+    // Mantener también el borrador de la FASE 2/3/4.
+    try {
+        if (typeof guardarBorrador === "function") guardarBorrador();
+    } catch (e) {
+        console.warn("No se pudo actualizar el borrador:", e);
+    }
+
+    if (!silencioso) {
+        alert(indice >= 0 ? "Informe actualizado correctamente." : "Informe guardado correctamente.");
+        mostrarInformesGuardados();
+    }
+    return nuevo.id;
+}
+
+function cargarInforme(id) {
+    const informe = todosLosInformes().find(x => x.id === id);
+    if (!informe) {
+        alert("No se encontró el informe.");
+        return;
+    }
+
+    informeActualId = informe.id;
+    restaurarEstáticos(informe.data);
+    reconstruirTarjetas(informe.data);
+
+    if (typeof generarVistaPrevia === "function") generarVistaPrevia();
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function eliminarInforme(id) {
+    const informe = todosLosInformes().find(x => x.id === id);
+    if (!informe) return;
+
+    const identificador = informe.metadata?.folio || informe.metadata?.fecha || id;
+    if (!confirm("¿Eliminar el informe " + identificador + "? Esta acción no se puede deshacer.")) return;
+
+    const lista = todosLosInformes().filter(x => x.id !== id);
+    guardarTodosLosInformes(lista);
+
+    if (informeActualId === id) informeActualId = null;
+    mostrarInformesGuardados();
+}
+
+function duplicarInforme(id) {
+    const informe = todosLosInformes().find(x => x.id === id);
+    if (!informe) return;
+
+    const copia = JSON.parse(JSON.stringify(informe));
+    copia.id = uidInforme();
+    copia.creado = new Date().toISOString();
+    copia.actualizado = copia.creado;
+    copia.metadata = copia.metadata || {};
+    copia.metadata.folio = copia.metadata.folio ? copia.metadata.folio + " (COPIA)" : "COPIA";
+
+    const lista = todosLosInformes();
+    lista.unshift(copia);
+    guardarTodosLosInformes(lista);
+    informeActualId = copia.id;
+    cargarInforme(copia.id);
+    mostrarInformesGuardados();
+}
+
+function nuevoInforme() {
+    if (!confirm("¿Crear un nuevo informe? Los datos que no hayas guardado se perderán.")) return;
+
+    informeActualId = null;
+
+    // Usa la función existente para conservar el comportamiento del proyecto.
+    if (typeof limpiarFormulario === "function") {
+        limpiarFormulario();
+    } else if (typeof limpiarTodo === "function") {
+        limpiarTodo();
+    } else if (typeof limpiar === "function") {
+        limpiar();
+    } else {
+        document.querySelectorAll("input, select, textarea").forEach(el => {
+            if (el.id === "vistaPrevia") return;
+            if (el.type === "button" || el.type === "submit") return;
+            if (el.type === "checkbox" || el.type === "radio") el.checked = false;
+            else el.value = "";
+        });
+        ["vehiculos","peatones","lesionados","muertos"].forEach(id => {
+            const c = document.getElementById(id);
+            if (c) c.innerHTML = "";
+        });
+    }
+
+    if (typeof generarVistaPrevia === "function") generarVistaPrevia();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function mostrarInformesGuardados() {
+    const cont = document.getElementById("listaInformes");
+    if (!cont) return;
+
+    const lista = todosLosInformes();
+
+    if (!lista.length) {
+        cont.innerHTML = '<div class="vacio-informes">No hay informes guardados todavía.</div>';
+        return;
+    }
+
+    cont.innerHTML = lista.map(informe => {
+        const m = informe.metadata || {};
+        const fecha = m.fecha || "NO APLICA";
+        const folio = m.folio || "NO APLICA";
+        const municipio = m.municipio || "NO APLICA";
+        const tipo = m.tipo || "Hecho de tránsito";
+        const actualizado = informe.actualizado
+            ? new Date(informe.actualizado).toLocaleString("es-MX")
+            : "";
+
+        return `
+            <div class="informe-guardado">
+                <div class="informe-meta">
+                    <strong>${htmlEscape(folio)}</strong>
+                    <span class="badge-tipo">${htmlEscape(tipo)}</span><br>
+                    Fecha: ${htmlEscape(fecha)}<br>
+                    Municipio: ${htmlEscape(municipio)}<br>
+                    Última actualización: ${htmlEscape(actualizado)}
+                </div>
+                <div class="informe-acciones">
+                    <button type="button" onclick="cargarInforme('${informe.id}')">📂 ABRIR</button>
+                    <button type="button" class="btn-secondary" onclick="duplicarInforme('${informe.id}')">📑 DUPLICAR</button>
+                    <button type="button" class="btn-danger" onclick="eliminarInforme('${informe.id}')">🗑️ ELIMINAR</button>
+                </div>
+            </div>
+        `;
+    }).join("");
+}
+
+function htmlEscape(v) {
+    return String(v ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+/* Atajos: si el usuario genera WhatsApp, actualizamos el informe guardado actual. */
+const _generarWhatsAppFase5Original = window.generarWhatsApp;
+if (typeof window.generarWhatsApp === "function") {
+    window.generarWhatsApp = function() {
+        const id = guardarInforme(true);
+        if (typeof _generarWhatsAppFase5Original === "function") {
+            return _generarWhatsAppFase5Original.apply(this, arguments);
+        }
+    };
+}
+
+/* Atajos seguros de la interfaz */
+function f6GenerarVista(){
+    var texto = generarVistaPrevia();
+    var seccion = document.getElementById("seccionVistaPrevia");
+    if(seccion) seccion.scrollIntoView({behavior:"smooth", block:"start"});
+    var area = document.getElementById("vistaPrevia");
+    if(area) area.focus();
+    return texto;
+}
+
+function f6EnviarWhatsApp(){
+    if(typeof generarWhatsApp === "function") return generarWhatsApp();
+}
+
+/* Mostrar la bandeja al cargar, sin interrumpir el uso normal. */
+document.addEventListener("DOMContentLoaded", () => {
+    mostrarInformesGuardados();
+});
+</script>
+
+
+
+
+
+<div class="f6-sticky-actions"><div class="f6-sticky-actions-inner">
+<button type="button" onclick="nuevoInforme()">🆕 NUEVO INFORME</button>
+<button type="button" onclick="guardarInforme()">💾 GUARDAR</button>
+<button type="button" onclick="f6GenerarVista()">📋 VISTA PREVIA</button>
+<button type="button" class="success" onclick="f6EnviarWhatsApp()">📲 ENVIAR POR WHATSAPP</button>
+</div></div>
+
+<script id="pwa-safe-nav">
+(function(){
+"use strict";
+function init(){
+  if(document.getElementById("pwaSafeNav")) return;
+  var nav=document.createElement("div"); nav.id="pwaSafeNav";
+  var items=[];
+  document.querySelectorAll("section,fieldset").forEach(function(el){
+    if(!el.id) return;
+    var h=el.querySelector("h1,h2,h3,h4,legend");
+    if(h && h.textContent.trim()) items.push([el.id,h.textContent.trim()]);
+  });
+  items.slice(0,15).forEach(function(x){
+    var b=document.createElement("button"); b.type="button";
+    b.textContent=x[1].length>22?x[1].slice(0,22)+"…":x[1];
+    b.onclick=function(){var e=document.getElementById(x[0]);if(e)e.scrollIntoView({behavior:"smooth",block:"start"});};
+    nav.appendChild(b);
+  });
+  if(nav.children.length) document.body.insertBefore(nav,document.body.firstChild);
+  if("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js").catch(function(e){console.warn("SW",e);});
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init); else init();
+})();
+</script>
+<footer style="text-align:center;padding:22px 10px;color:#6b7280;font-size:12px">© 2026 — Informe de Tránsito<br><strong>José Juan Romero Cielo</strong></footer>
+</body>
+</html>

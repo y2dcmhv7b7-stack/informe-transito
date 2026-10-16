@@ -1,0 +1,9 @@
+{
+  "name": "Informe de Hecho de Tránsito",
+  "short_name": "Informe Tránsito",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#111827"
+}
