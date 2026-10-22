@@ -243,13 +243,6 @@ body.fase6-ready{background:var(--f6-bg);color:var(--f6-text)}
 <div id="f6Topbar">
  <div class="f6-topbar-inner">
   <div class="f6-brand">INFORME DE HECHO DE TRÁNSITO<small>POLICÍA ESTATAL DE CAMINOS · REGIÓN VIII ATLIXCO</small></div>
-  <div class="f6-actionbar">
-   <button type="button" class="primary" onclick="nuevoInforme()">🆕 NUEVO</button>
-   <button type="button" class="success" onclick="guardarInforme()">💾 GUARDAR</button>
-   <button type="button" onclick="mostrarInformesGuardados();document.getElementById('seccionGestionInformes')?.scrollIntoView({behavior:'smooth'})">📂 INFORMES</button>
-   <button type="button" onclick="f6GenerarVista()">📋 VISTA PREVIA</button>
-   <button type="button" class="success" onclick="f6EnviarWhatsApp()">📲 WHATSAPP</button>
-  </div>
  </div>
  <div id="f6Status"></div>
 </div>
@@ -1125,8 +1118,36 @@ function obtenerGeoreferencia(){ if(!navigator.geolocation){alert("Este disposit
 function mostrarCompetencia(){ document.getElementById("datosCompetencia")?.classList.toggle("hidden",document.getElementById("competencia")?.value!=="Sí"); }
 function mostrarAsegurados(){ document.getElementById("contenedorAsegurados")?.classList.toggle("hidden",document.getElementById("personasAseguradas")?.value!=="Sí"); }
 function agregarAsegurado(){ const div=document.createElement("div"); div.className="card asegurado-card"; const conductores=[...document.querySelectorAll("#vehiculos .v-conductor")].map((x,i)=>x.value.trim()?`<option value="${x.value.replace(/"/g,'&quot;')}">Vehículo ${i+1} — ${x.value.replace(/</g,'&lt;')}</option>`:'').join(''); div.innerHTML=`<h3>PERSONA ASEGURADA</h3><div class="grid"><div class="field"><label>Origen</label><select class="a-origen" onchange="this.closest('.card').querySelector('.a-manual').classList.toggle('hidden',this.value!=='MANUAL')"><option value="CONDUCTOR">Conductor de vehículo</option><option value="MANUAL">Captura manual</option></select></div><div class="field"><label>Conductor</label><select class="a-conductor"><option value="">Seleccionar conductor</option>${conductores}</select></div><div class="field"><label>CURP (opcional)</label><input class="a-curp" maxlength="18"></div><div class="field full"><label>Datos manuales</label><textarea class="a-manual hidden"></textarea></div></div><button type="button" class="delete" onclick="this.parentElement.remove()">🗑️ ELIMINAR</button>`; document.getElementById('asegurados').appendChild(div); }
-const PERITOS_CATALOGO=['Policía 2938 Víctor Manuel Olarte Sevilla','Policía 3102 José Juan Romero Cielo','Policía Primero 47 Marcos Zamora Martínez','Policía 3008 Hector Montiel Ortiz','Policía 2817 Jaír Rojas Arroyo','Policía 2037 Caleb Cortes Salgado','Policía 2814 Héctor Pérez Ávila','Policía 2767 José Luis Rubi Madrid','Policía 2914 Vicente Orlando González Cruz','Policía 2734 Fernando Sánchez Gálvez','Oficial Joaquín Sánchez Jimiénez','Policía 2777 Rafael Ávila Andrade','Policía 3089 Erika Hernández Pérez','Policía 2762 Rodolfo Hugo Rojas Meza','Policía 2908 Rogelio Ordóñez Patiño','Policía Tercero 595 Juan Manuel Vivar Valencia','Policía 2888 Juan Carlos Cortés Ramirez','Policía 2746 Fredy Martinez Munguía','Policía Tercero 587 Antonio Marquez García','Policía 2922 Martin Perez Villegas','Policía 2997 Claudio Villanueva Contreras','Policía 1794 Monica del Carmen Cortés Hernandez','Policía 1798 Evelia Magaña Solis','Policía Tercero 601 Mario Gavito López','Policía Tercero 515 Gustavo Ángel Juarez Ramirez','Policía 4153 Adriana Sarai Ramírez Hernández','Policía 1827 Alejandro Sanchez Andrade'];
-function agregarPerito(){ const div=document.createElement('div'); div.className='card perito-card'; div.innerHTML=`<div class="grid"><div class="field"><label>Perito</label><select class="perito-nombre">${selectOptions(PERITOS_CATALOGO,'Seleccionar perito')}</select></div><div class="field"><label>O captura manual</label><input class="perito-manual" placeholder="Nombre completo"></div></div><button type="button" class="delete" onclick="this.parentElement.remove()">🗑️ ELIMINAR</button>`; const sel=div.querySelector('.perito-nombre'); div.querySelector('.perito-manual').addEventListener('input',e=>{if(e.target.value.trim())sel.value='';}); document.getElementById('peritosSeleccionados').appendChild(div); }
+const PERITOS_CATALOGO=[
+ {nombre:'Policía 2938 Víctor Manuel Olarte Sevilla',telefono:'2225091327'},
+ {nombre:'Policía 3102 José Juan Romero Cielo',telefono:'2217927067'},
+ {nombre:'Policía Primero 47 Marcos Zamora Martínez',telefono:'2224360691'},
+ {nombre:'Policía 3008 Hector Montiel Ortiz',telefono:'222820613'},
+ {nombre:'Policía 2817 Jaír Rojas Arroyo',telefono:'2224384901'},
+ {nombre:'Policía 2037 Caleb Cortes Salgado',telefono:'2271134080'},
+ {nombre:'Policía 2814 Héctor Pérez Ávila',telefono:'2224371741'},
+ {nombre:'Policía 2767 José Luis Rubi Madrid',telefono:'2224265836'},
+ {nombre:'Policía 2914 Vicente Orlando González Cruz',telefono:'2221860493'},
+ {nombre:'Policía 2734 Fernando Sánchez Gálvez',telefono:'2228483625'},
+ {nombre:'Oficial Joaquín Sánchez Jimiénez',telefono:'2227084392'},
+ {nombre:'Policía 2777 Rafael Ávila Andrade',telefono:'2227394606'},
+ {nombre:'Policía 3089 Erika Hernández Pérez',telefono:'22277699'},
+ {nombre:'Policía 2762 Rodolfo Hugo Rojas Meza',telefono:'22277699'},
+ {nombre:'Policía 2908 Rogelio Ordóñez Patiño',telefono:'2226124662'},
+ {nombre:'Policía Tercero 595 Juan Manuel Vivar Valencia',telefono:'2211599468'},
+ {nombre:'Policía 2888 Juan Carlos Cortés Ramirez',telefono:'2225297683'},
+ {nombre:'Policía 2746 Fredy Martinez Munguía',telefono:'2381509279'},
+ {nombre:'Policía Tercero 587 Antonio Marquez García',telefono:'2441225211'},
+ {nombre:'Policía 2922 Martin Perez Villegas',telefono:'2481867762'},
+ {nombre:'Policía 2997 Claudio Villanueva Contreras',telefono:'2441090806'},
+ {nombre:'Policía 1794 Monica del Carmen Cortés Hernandez',telefono:'2481393546'},
+ {nombre:'Policía 1798 Evelia Magaña Solis',telefono:'2481556674'},
+ {nombre:'Policía Tercero 601 Mario Gavito López',telefono:'2214221243'},
+ {nombre:'Policía Tercero 515 Gustavo Ángel Juarez Ramirez',telefono:'2491056718'},
+ {nombre:'Policía 4153 Adriana Sarai Ramírez Hernández',telefono:''},
+ {nombre:'Policía 1827 Alejandro Sanchez Andrade',telefono:'2481996883'}
+];
+function agregarPerito(){ const div=document.createElement('div'); div.className='card perito-card'; div.innerHTML=`<div class="grid"><div class="field"><label>Perito</label><select class="perito-nombre"><option value="">Seleccionar perito</option>${PERITOS_CATALOGO.map((x,i)=>`<option value="${i}">${x.nombre}</option>`).join('')}</select></div><div class="field"><label>Número de teléfono</label><input class="perito-telefono" type="tel" inputmode="numeric" maxlength="20" placeholder="Teléfono"></div><div class="field"><label>O captura manual</label><input class="perito-manual" placeholder="Nombre completo"></div></div><button type="button" class="delete" onclick="this.parentElement.remove()">🗑️ ELIMINAR</button>`; const sel=div.querySelector('.perito-nombre'); const tel=div.querySelector('.perito-telefono'); const manual=div.querySelector('.perito-manual'); sel.addEventListener('change',()=>{ const item=PERITOS_CATALOGO[Number(sel.value)]; if(item){ tel.value=item.telefono||''; manual.value=''; } }); manual.addEventListener('input',e=>{if(e.target.value.trim())sel.value='';}); document.getElementById('peritosSeleccionados').appendChild(div); }
 function initCatalogos(){ const m=document.getElementById('municipio'); if(m) m.innerHTML=selectOptions(MUNICIPIOS_PUEBLA,'Seleccionar municipio'); const dl=document.getElementById('coloniasCatalogo'); if(dl){ ['Centro','San Manuel','La Paz','Amalucan','Bosques de San Sebastián','Loma Bella','San Baltazar Campeche','San Felipe Hueyotlipan','San Francisco','Santiago Momoxpan','San Pedro Cholula Centro','Cholula de Rivadavia Centro','Momoxpan','Reserva Territorial Atlixcáyotl','Las Ánimas','Huexotitla','El Carmen','La Margarita','Jardines de San Manuel','La Hacienda','Santa Cruz Buenavista'].forEach(x=>{const o=document.createElement('option');o.value=x;dl.appendChild(o);}); } mostrarCompetencia(); mostrarAsegurados(); }
 document.addEventListener('DOMContentLoaded',()=>{initCatalogos(); document.getElementById("usarInspeccion")?.addEventListener("change",e=>document.getElementById("inspeccion")?.classList.toggle("hidden",!e.target.checked));});
 
@@ -1201,10 +1222,12 @@ function generarInforme() {
     } else {
         vehiculos.forEach((v, i) => {
             texto += bloqueTitulo("VEHÍCULO " + (i + 1));
-            if(v.querySelector(".v-desconocidos")?.checked) texto += linea("DATOS DESCONOCIDOS DEL VEHÍCULO","Sí");
-            if(v.querySelector(".v-conductorDesconocido")?.checked) texto += linea("DATOS DESCONOCIDOS DEL CONDUCTOR","Sí");
-            texto += linea("PLACAS", v.querySelector(".v-placas")?.value);
-            texto += linea("TIPO DE PLACA/PERMISO", v.querySelector(".v-placasTipo")?.value);
+            if(v.querySelector(".v-desconocidos")?.checked){
+                texto += "SE DESCONOCEN LOS DATOS DEL VEHÍCULO POR NO PERMANECER EN EL LUGAR DE LOS HECHOS.\n\n";
+                return;
+            }
+            const tipoPlacaPermiso = v.querySelector(".v-placasTipo")?.value || "PLACAS";
+            texto += linea(tipoPlacaPermiso, v.querySelector(".v-placas")?.value);
             texto += linea("ESTADO", v.querySelector(".v-estado")?.value);
             texto += linea("MARCA", v.querySelector(".v-marca")?.value);
             texto += linea("SUBMARCA", v.querySelector(".v-submarca")?.value);
@@ -1213,10 +1236,15 @@ function generarInforme() {
             texto += linea("COLOR", v.querySelector(".v-color")?.value);
             texto += linea("NÚMERO DE SERIE/VIN", v.querySelector(".v-serie")?.value);
             texto += linea("INVENTARIO DE GRÚAS", v.querySelector(".v-inventarioGruas")?.value);
-            texto += linea("CONDUCTOR", v.querySelector(".v-conductor")?.value);
-            texto += linea("EDAD", v.querySelector(".v-edad")?.value);
-            texto += linea("OCUPACIÓN", v.querySelector(".v-ocupacion")?.value);
-            texto += linea("ESTADO CIVIL", v.querySelector(".v-estadoCivil")?.value);
+            if(v.querySelector(".v-conductorDesconocido")?.checked){
+                texto += "CONDUCTOR: SE DESCONOCE POR NO PERMANECER EN EL LUGAR DE LOS HECHOS.\n";
+            } else {
+                texto += linea("CONDUCTOR", v.querySelector(".v-conductor")?.value);
+                texto += linea("EDAD", v.querySelector(".v-edad")?.value);
+                texto += linea("OCUPACIÓN", v.querySelector(".v-ocupacion")?.value);
+                texto += linea("ESTADO CIVIL", v.querySelector(".v-estadoCivil")?.value);
+            }
+
             texto += linea("DAÑOS MATERIALES", v.querySelector(".v-danos")?.value);
             texto += "\n";
         });
@@ -1370,7 +1398,7 @@ function generarInforme() {
     texto += bloqueTitulo("ACCIONES REALIZADAS");
     texto += (valor("acciones") || "NO APLICA") + "\n\n";
 
-    texto += bloqueTitulo("PERITOS QUE ATIENDEN E INFORMAN"); document.querySelectorAll("#peritosSeleccionados .perito-card").forEach((p,i)=>{ const n=p.querySelector(".perito-nombre")?.value||p.querySelector(".perito-manual")?.value||""; texto += linea("PERITO "+(i+1),n); }); texto += "\n"; texto += linea("UNIDAD OFICIAL / C.R.P.", valor("unidadOficial"));
+    texto += bloqueTitulo("PERITOS QUE ATIENDEN E INFORMAN"); document.querySelectorAll("#peritosSeleccionados .perito-card").forEach((p,i)=>{ const sel=p.querySelector(".perito-nombre"); const item=PERITOS_CATALOGO[Number(sel?.value)]; const n=item?.nombre||p.querySelector(".perito-manual")?.value||""; const tel=p.querySelector(".perito-telefono")?.value||item?.telefono||""; texto += linea("PERITO "+(i+1),n); texto += linea("NÚMERO DE TELÉFONO",tel); }); texto += "\n"; texto += linea("UNIDAD OFICIAL / C.R.P.", valor("unidadOficial"));
     texto += "\n";
 
     texto += bloqueTitulo("GRÚAS");
@@ -1697,7 +1725,7 @@ function reconstruirTarjetas(data) {
         }
     });
     (data.asegurados || []).forEach(obj => { agregarAsegurado(); const cards=document.querySelectorAll("#asegurados .asegurado-card"); restaurarTarjeta(cards[cards.length-1],obj); });
-    (data.peritos || []).forEach(obj => { agregarPerito(); const cards=document.querySelectorAll("#peritosSeleccionados .perito-card"); restaurarTarjeta(cards[cards.length-1],obj); });
+    (data.peritos || []).forEach(obj => { agregarPerito(); const cards=document.querySelectorAll("#peritosSeleccionados .perito-card"); const card=cards[cards.length-1]; restaurarTarjeta(card,obj); const sel=card.querySelector(".perito-nombre"); const item=PERITOS_CATALOGO[Number(sel?.value)]; const tel=card.querySelector(".perito-telefono"); if(tel && !tel.value && item) tel.value=item.telefono||""; });
 
     if (typeof actualizarRelacionesOccisos === "function") {
         actualizarRelacionesOccisos();
@@ -1923,6 +1951,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <div class="f6-sticky-actions"><div class="f6-sticky-actions-inner">
 <button type="button" onclick="nuevoInforme()">🆕 NUEVO INFORME</button>
 <button type="button" onclick="guardarInforme()">💾 GUARDAR</button>
+<button type="button" onclick="mostrarInformesGuardados();document.getElementById('seccionGestionInformes')?.scrollIntoView({behavior:'smooth'})">📂 INFORMES</button>
 <button type="button" onclick="f6GenerarVista()">📋 VISTA PREVIA</button>
 <button type="button" class="success" onclick="f6EnviarWhatsApp()">📲 ENVIAR POR WHATSAPP</button>
 </div></div>
